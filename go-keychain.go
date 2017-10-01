@@ -11,10 +11,18 @@ import (
 	"github.com/jmuldoon/go-keychain/kchain"
 )
 
+// Exit Codes
+const (
+	ExitArgParseErr = 1 + iota
+	ExitWriteErr
+	ExitReadErr
+)
+
 func main() {
 	args := &arguments.Args{}
 	if err := args.Parser(); err != nil {
-		os.Exit(1)
+		fmt.Println(err)
+		os.Exit(ExitArgParseErr)
 	}
 
 	if *args.Generate > 0 {
@@ -33,12 +41,14 @@ func main() {
 	if *args.Read {
 		plaintextPassword, err := kcitem.Read()
 		if err != nil {
-			os.Exit(3)
+			fmt.Println(err)
+			os.Exit(ExitReadErr)
 		}
 		fmt.Println(plaintextPassword)
 	} else {
 		if err := kcitem.Write(); err != nil {
-			os.Exit(2)
+			fmt.Println(err)
+			os.Exit(ExitWriteErr)
 		}
 	}
 }
