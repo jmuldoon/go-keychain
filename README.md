@@ -7,7 +7,7 @@ Personal use, password export for applications. Quick and dirty implemenation fo
 Arguments | Values | Description
 ---         | ---           | ---
 account     | "username"    | user account (required)
-accessGroup | "usergroup"   | user access group
+group       | "usergroup"   | user access group
 data        | "tests123"    | password/encrypted part (required if writing)
 label       | "testlabel"   | name (required)
 service     | "testservice" | where (required)
