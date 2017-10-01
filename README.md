@@ -4,14 +4,14 @@ Personal use, password export for applications. Quick and dirty implemenation fo
 
 ## example cli arguments
 
-| Arguments | Values | Description |
-| --- | --- | --- | --- | --- |
-| account     | "username"    | user account (required) |
-| accessGroup | "usergroup"   | user access group |
-| data        | "tests123"    | password/encrypted part (required if writing) |
-| label       | "testlabel"   | name (required) |
-| service     | "testservice" | where (required) |
-| export      | false         | if you want to export specify this |
+Arguments | Values | Description
+--- | --- | --- | --- | ---
+account     | "username"    | user account (required)
+accessGroup | "usergroup"   | user access group
+data        | "tests123"    | password/encrypted part (required if writing)
+label       | "testlabel"   | name (required)
+service     | "testservice" | where (required)
+export      | false         | if you want to export specify this
 
 ### Example useage
 
