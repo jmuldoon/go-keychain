@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 
 	"github.com/jmuldoon/go-keychain/arguments"
+	"github.com/jmuldoon/go-keychain/generate"
 	"github.com/jmuldoon/go-keychain/kchain"
 )
 
@@ -12,6 +15,11 @@ func main() {
 	args := &arguments.Args{}
 	if err := args.Parser(); err != nil {
 		os.Exit(1)
+	}
+
+	if *args.Generate > 0 {
+		src := rand.NewSource(time.Now().UnixNano())
+		*args.Data = generate.RandStringBytesMaskImprSrc(src, *args.Generate)
 	}
 
 	kcitem := &kchain.Item{
