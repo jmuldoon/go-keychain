@@ -4,19 +4,21 @@ Personal use, password export for applications. Quick and dirty implemenation fo
 
 ## example cli arguments
 
-Arguments | Values | Description
+Arguments   | Values        | Description
 ---         | ---           | ---
-account     | "username"    | user account (required)
-group       | "usergroup"   | user access group
-data        | "tests123"    | password/encrypted part (required if writing)
-label       | "testlabel"   | name (required)
-service     | "testservice" | where (required)
-export      | false         | if you want to export specify this
+account     | string        | user account (required)
+group       | string        | user access group
+data        | string        | password/encrypted part (required if writing)
+generate    | integer       | integer length of the password string to be generated
+label       | string        | name (required)
+service     | string        | where (required)
+read        | bool          | defaults false. If you want to read must be specified
 
 ### Example useage
 
 ``` bash
 go-keychain -account username -service testservice -label testlabel -data tests123
+go-keychain -account username -service testservicepath2 -label testlabel -generate 32
 ```
 
 ## .bashrc / .bash_profile
