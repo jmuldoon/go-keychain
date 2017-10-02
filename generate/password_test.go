@@ -48,7 +48,6 @@ func TestRandStringBytesMaskType(t *testing.T) {
 	}
 }
 
-// TODO: figure out why benchmarks are not working
 func benchmarkRandStringBytesMask(n int, b *testing.B) {
 	// Create the new source for random generation
 	src := rand.NewSource(time.Now().UnixNano())
@@ -58,9 +57,4 @@ func benchmarkRandStringBytesMask(n int, b *testing.B) {
 	}
 }
 
-func BenchmarkRandStringBytesMask2(b *testing.B)  { benchmarkRandStringBytesMask(2, b) }
-func BenchmarkRandStringBytesMask4(b *testing.B)  { benchmarkRandStringBytesMask(4, b) }
-func BenchmarkRandStringBytesMask8(b *testing.B)  { benchmarkRandStringBytesMask(8, b) }
-func BenchmarkRandStringBytesMask16(b *testing.B) { benchmarkRandStringBytesMask(16, b) }
 func BenchmarkRandStringBytesMask32(b *testing.B) { benchmarkRandStringBytesMask(32, b) }
-func BenchmarkRandStringBytesMask64(b *testing.B) { benchmarkRandStringBytesMask(64, b) }
