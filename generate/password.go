@@ -4,6 +4,8 @@ import (
 	"math/rand"
 )
 
+const testVersion = 0
+
 const charBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_-"
 const (
 	letterIdxBits = 6                    // 6 bits to represent a letter index
