@@ -11,9 +11,9 @@ const (
 	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
 )
 
-// RandStringBytesMaskImprSrc generates a masked byte string based on src input
+// RandStringBytesMask generates a masked byte string based on src input
 // pretty good implementation found by icza on stackoverflow modified for use.
-func RandStringBytesMaskImprSrc(src rand.Source, n int) string {
+func RandStringBytesMask(src rand.Source, n int) string {
 	b := make([]byte, n)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
 	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {

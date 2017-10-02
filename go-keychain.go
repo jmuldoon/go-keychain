@@ -8,7 +8,7 @@ import (
 
 	"github.com/jmuldoon/go-keychain/arguments"
 	"github.com/jmuldoon/go-keychain/generate"
-	"github.com/jmuldoon/go-keychain/kchain"
+	"github.com/jmuldoon/go-keychain/security"
 )
 
 // Exit Codes
@@ -27,10 +27,10 @@ func main() {
 
 	if *args.Generate > 0 {
 		src := rand.NewSource(time.Now().UnixNano())
-		*args.Data = generate.RandStringBytesMaskImprSrc(src, *args.Generate)
+		*args.Data = generate.RandStringBytesMask(src, *args.Generate)
 	}
 
-	kcitem := &kchain.Item{
+	kcitem := &security.Item{
 		Account: *args.Account,
 		Group:   *args.Group,
 		Data:    []byte(*args.Data),
