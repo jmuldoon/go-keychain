@@ -1,11 +1,5 @@
 package generate
 
-import (
-	"fmt"
-)
-
-var errDefault = fmt.Errorf("generate: expected error")
-
 type Expected struct {
 	Value interface{}
 	Error error

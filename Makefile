@@ -13,10 +13,10 @@ LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
+PKGS = $(shell go list ./...)
 
-TESTS = $(shell find . -type d -not -path "./.git*" -not -path "./.vscode*")
-
-.PHONY: all build clean install uninstall fmt simplify check test coverage run help
+.PHONY: all build clean install uninstall fmt simplify check test coverage run help coverageall
+.PHONY: tools varcheck structcheck aligncheck deadcode errcheck checkall testverbose
 
 all: check install
 
@@ -31,10 +31,18 @@ help:
 	@echo '    help               Show this help screen.'
 	@echo '    clean              Remove binaries, artifacts and releases.'
 	@echo '    check              Runs go fmt, lint, vet'
-	@echo '    test               Run unit tests.'
-	@echo '    coverage           Report code tests coverage.'
+	@echo '    checkall          	Runs go fmt, lint, vet, deadcode, varcheck, errcheck, structcheck, aligncheck'
+	@echo '    test               Run unit tests, and check'
+	@echo '    testverbose        Run unit tests in verbose mode, and check'
+	@echo '    coverage           Report code tests coverage, and check'
+	@echo '    coverageall        Report code tests coverage, and run checkall'
 	@echo '    build              Build project for current platform.'
 	@echo '    fmt                Run go fmt.'
+	@echo '    errcheck           Finds unchecked errors in a go programs.'
+	@echo '    varcheck           Finds unused global variables and constants.'
+	@echo '    structcheck        Find unused struct fields.'
+	@echo '    aligncheck         Find inefficiently packed structs.'
+	@echo '    deadcode           Find unused declarations.'
 	@echo '    simplify           Run go fmt with -s.'
 	@echo '    install            Run go install'
 	@echo '    uninstall          Force removes the artifact'
@@ -58,6 +66,29 @@ uninstall: clean
 fmt:
 	@gofmt -l -w $(SRC)
 
+tools:
+	@go get github.com/golang/lint/golint
+	@go get github.com/kisielk/errcheck
+	@go get github.com/remyoudompheng/go-misc/deadcode
+	@go get github.com/opennota/check/cmd/aligncheck
+	@go get github.com/opennota/check/cmd/structcheck
+	@go get github.com/opennota/check/cmd/varcheck
+
+errcheck:
+	@errcheck $(PKGS)
+
+varcheck:
+	@varcheck $(PKGS)
+
+structcheck:
+	@structcheck $(PKGS)
+
+aligncheck:
+	@aligncheck $(PKGS)
+
+deadcode:
+	@deadcode -test $(PKGS)
+
 simplify:
 	@gofmt -s -l -w $(SRC)
 
@@ -66,12 +97,22 @@ check:
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
 	@go tool vet ${SRC}
 
-test:
-	@go test -v $(TESTS)
+checkall: errcheck varcheck structcheck aligncheck deadcode
+	@test -z $(shell gofmt -l main.go | tee /dev/stderr) || echo "[WARN] Fix formatting issues with 'make fmt'"
+	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
+	@go tool vet ${SRC}
 
-coverage:
-	@go test -cover $(TESTS)
+test: check
+	@go test $(PKGS)
 
+testverbose: check
+	@go test -v $(PKGS)
+
+coverage: check
+	@go test -cover $(PKGS)
+
+coverageall: checkall
+	@go test -cover $(PKGS)
 
 run: install
 	@$(TARGET)
