@@ -14,9 +14,12 @@ LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 PKGS = $(shell go list ./...)
+# TODO MAKE THIS WORK
+# DEPS = $(<.requirements)
+# DEPS = $(shell while read -r line; do echo ${line}; done <.requirements)
 
 .PHONY: all build clean install uninstall fmt simplify check test coverage run help coverageall
-.PHONY: tools varcheck structcheck aligncheck deadcode errcheck checkall testverbose
+.PHONY: tools varcheck structcheck aligncheck deadcode errcheck checkall testverbose deps doc
 
 all: check install
 
@@ -30,6 +33,9 @@ help:
 	@echo ''
 	@echo '    help               Show this help screen.'
 	@echo '    clean              Remove binaries, artifacts and releases.'
+	@echo '    doc                Start Go documentation server on port 8080.'
+	@echo '    tools              Install tools needed by the project.'
+	@echo '    deps               Download and install build time dependencies.'
 	@echo '    check              Runs go fmt, lint, vet'
 	@echo '    checkall          	Runs go fmt, lint, vet, deadcode, varcheck, errcheck, structcheck, aligncheck'
 	@echo '    test               Run unit tests, and check'
@@ -57,6 +63,9 @@ build: $(TARGET)
 clean:
 	@rm -f $(TARGET)
 
+doc:
+	godoc -http=:8080 -index
+
 install:
 	@go install $(LDFLAGS)
 
@@ -65,6 +74,9 @@ uninstall: clean
 
 fmt:
 	@gofmt -l -w $(SRC)
+
+deps:
+	@echo $(DEPS)
 
 tools:
 	@go get github.com/golang/lint/golint
