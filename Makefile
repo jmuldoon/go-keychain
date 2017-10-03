@@ -14,6 +14,8 @@ LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
+TESTS = $(shell find . -type d -not -path "./.git*" -not -path "./.vscode*")
+
 .PHONY: all build clean install uninstall fmt simplify check test coverage run help
 
 all: check install
@@ -65,10 +67,10 @@ check:
 	@go tool vet ${SRC}
 
 test:
-	@go test -v $$(find . -type d -not -path "./.git*" -not -path "./.vscode*")
+	@go test -v $(TESTS)
 
 coverage:
-	@go test -cover $$(find . -type d -not -path "./.git*" -not -path "./.vscode*")
+	@go test -cover $(TESTS)
 
 
 run: install
