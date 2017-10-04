@@ -1,0 +1,3 @@
+package: github.com/jmuldoon/go-keychain
+import:
+- package: github.com/keybase/go-keychain

@@ -1,0 +1,6 @@
+hash: 1551ff809914f5164455d6a9e17987b485cbcb07591a00b41c1c79dcfb8b08f1
+updated: 2017-10-04T13:53:26.997557342+08:00
+imports:
+- name: github.com/keybase/go-keychain
+  version: ea111bd9eaa41fcf8f0c877304cf6b32cab505ca
+testImports: []

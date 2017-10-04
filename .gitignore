@@ -15,5 +15,8 @@ debug
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
+# 3rd party dependencies
+vendor/
+
 # vscode stuff
 .vscode
