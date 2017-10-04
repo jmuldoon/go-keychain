@@ -2,7 +2,7 @@
 
 Personal use, password export for applications. Quick and dirty implemenation for password setting and retrieval. Plus quick use case.
 
-## example cli arguments
+## Example cli arguments
 
 Arguments   | Values        | Description
 ---         | ---           | ---
@@ -28,4 +28,18 @@ the default base password you'd like.
 
 ``` bash
 export DEFAULT_KEY_NAME=$(go-keychain -account username -service testservice -label testlabel -read)
+```
+
+## Makefile use
+
+The following `make` commands executed from the top level directory will enable the building of the binary. Pre-requisite is to have go installed. This was built using `go version go1.9 darwin/amd64`, but should be cross compilable with `gox` if needed.
+
+``` bash
+make all
+```
+
+Please see for a complete listing the below command.
+
+``` bash
+make help
 ```

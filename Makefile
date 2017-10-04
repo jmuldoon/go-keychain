@@ -52,7 +52,6 @@ help:
 	@echo '    imports            Run goimports to remove/add (un)necessary imports.'
 	@echo '    install            Run go install'
 	@echo '    uninstall          Force removes the artifact'
-	@echo '    run                Run executes install, then the binary is called'
 	@echo ''
 	@echo 'Targets run by default are: checkall, install'
 	@echo ''
@@ -130,6 +129,3 @@ coverage: check
 
 coverageall: checkall
 	@go test -cover $(PKGS)
-
-run: install
-	@$(TARGET)
