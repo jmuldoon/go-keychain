@@ -9,21 +9,20 @@ VERSION := 0.0.0
 BUILD := `git rev-parse HEAD`
 
 # Use linker flags to provide version/build settings to the target
-LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
+LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.Build=$(BUILD)"
 
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
-# If glide is not used then utilize the below commented out command.
-# PKGS = $(shell go list ./... | grep -v /vendor/)
+PKGS_BY_PATH = $(shell go list ./... | grep -v /vendor/)
 PKGS = $(shell glide novendor)
 
-.PHONY: all build clean install uninstall fmt simplify check test coverage run help coverageall
+.PHONY: all build clean install uninstall fmt imports check test coverage run help coverageall
 .PHONY: tools varcheck structcheck aligncheck deadcode errcheck checkall testverbose deps doc
 .PHONY: depsupdate
 
-all: check install
+all: checkall install
 
-$(TARGET): $(SRC)
+$(TARGET): deps $(SRC)
 	@go build $(LDFLAGS) -o $(TARGET)
 
 help:
@@ -36,13 +35,13 @@ help:
 	@echo '    doc                Start Go documentation server on port 8080.'
 	@echo '    tools              Install tools needed by the project.'
 	@echo '    deps               Glide download and install build time dependencies.'
-	@echo '    deps               Glide update the dependencies.'
-	@echo '    check              Runs go fmt, lint, vet'
-	@echo '    checkall          	Runs go fmt, lint, vet, deadcode, varcheck, errcheck, structcheck, aligncheck'
-	@echo '    test               Run unit tests, and check'
-	@echo '    testverbose        Run unit tests in verbose mode, and check'
-	@echo '    coverage           Report code tests coverage, and check'
-	@echo '    coverageall        Report code tests coverage, and run checkall'
+	@echo '    depsupdate         Glide update the dependencies.'
+	@echo '    check              Runs go fmt, lint, vet, imports.'
+	@echo '    checkall          	Runs go fmt, lint, vet, imports, deadcode, varcheck, errcheck, structcheck, aligncheck.'
+	@echo '    test               Run unit tests, and check.'
+	@echo '    testverbose        Run unit tests in verbose mode, and check.'
+	@echo '    coverage           Report code tests coverage, and check.'
+	@echo '    coverageall        Report code tests coverage, and run checkall.'
 	@echo '    build              Build project for current platform.'
 	@echo '    fmt                Run go fmt.'
 	@echo '    errcheck           Finds unchecked errors in a go programs.'
@@ -50,12 +49,12 @@ help:
 	@echo '    structcheck        Find unused struct fields.'
 	@echo '    aligncheck         Find inefficiently packed structs.'
 	@echo '    deadcode           Find unused declarations.'
-	@echo '    simplify           Run go fmt with -s.'
+	@echo '    imports            Run goimports to remove/add (un)necessary imports.'
 	@echo '    install            Run go install'
 	@echo '    uninstall          Force removes the artifact'
 	@echo '    run                Run executes install, then the binary is called'
 	@echo ''
-	@echo 'Targets run by default are: check, install'
+	@echo 'Targets run by default are: checkall, install'
 	@echo ''
 
 build: $(TARGET)
@@ -67,7 +66,7 @@ clean:
 doc:
 	godoc -http=:8080 -index
 
-install:
+install: deps
 	@go install $(LDFLAGS)
 
 uninstall: clean
@@ -84,6 +83,7 @@ depsupdate:
 
 tools:
 	@go get github.com/Masterminds/glide
+	@go get golang.org/x/tools/cmd/goimports
 	@go get github.com/golang/lint/golint
 	@go get github.com/kisielk/errcheck
 	@go get github.com/remyoudompheng/go-misc/deadcode
@@ -104,17 +104,17 @@ aligncheck:
 	@aligncheck $(PKGS)
 
 deadcode:
-	@deadcode -test $(PKGS)
+	@deadcode -test $(PKGS_BY_PATH)
 
-simplify:
-	@gofmt -s -l -w $(SRC)
+imports:
+	@goimports -l -w .
 
-check:
+check: imports
 	@test -z $(shell gofmt -l main.go | tee /dev/stderr) || echo "[WARN] Fix formatting issues with 'make fmt'"
 	@for d in $(PKGS); do golint $${d}; done
 	@go tool vet ${SRC}
 
-checkall: errcheck varcheck structcheck aligncheck deadcode
+checkall: imports errcheck varcheck structcheck aligncheck deadcode
 	@test -z $(shell gofmt -l main.go | tee /dev/stderr) || echo "[WARN] Fix formatting issues with 'make fmt'"
 	@for d in $(PKGS); do golint $${d}; done
 	@go tool vet ${SRC}

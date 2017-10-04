@@ -1,3 +1,4 @@
 package: github.com/jmuldoon/go-keychain
 import:
 - package: github.com/keybase/go-keychain
+  version: ea111bd9eaa41fcf8f0c877304cf6b32cab505ca
