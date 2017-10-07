@@ -27,7 +27,7 @@ func TestRandStringBytesMaskLength(t *testing.T) {
 				"Brief (%s)\n"+
 				"Observed: %t\n"+
 				"Expected: %t\n",
-				"TestRandStringBytesMask", test.Tested.Value,
+				"TestRandStringBytesMaskLength", test.Tested.Value,
 				test.Description, observed, test.Expected.Value)
 		}
 	}
@@ -45,7 +45,7 @@ func TestRandStringBytesMaskType(t *testing.T) {
 				"Brief (%s)\n"+
 				"Observed: %t\n"+
 				"Expected: %t\n",
-				"TestRandStringBytesMask", test.Tested.Value,
+				"TestRandStringBytesMaskType", test.Tested.Value,
 				test.Description, observed, test.Expected.Value)
 		}
 	}

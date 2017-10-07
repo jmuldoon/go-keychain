@@ -13,14 +13,18 @@ import (
 
 // Exit Codes
 const (
-	ExitArgParseErr = 1 + iota
+	ExitGeneralErr = 1 + iota
+	ExitArgParseErr
 	ExitWriteErr
 	ExitReadErr
 )
 
 func main() {
 	args := &arguments.Args{}
-	if err := args.Parser(); err != nil {
+	// commandLine := flag.NewFlagSet(os.Args[0], ExitOnError)
+	// if err := arguments.Parse(args, commandLine); err != nil {
+	// TODO: follow up with the adjustment to fully controlled system as deailed above.
+	if err := arguments.Parse(args); err != nil {
 		fmt.Println(err)
 		os.Exit(ExitArgParseErr)
 	}
