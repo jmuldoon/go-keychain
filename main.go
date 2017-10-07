@@ -38,15 +38,17 @@ func main() {
 		Service: *args.Service,
 	}
 
+	// create interface struct
+	extKeychain := &security.ExternalKeychain{}
 	if *args.Read {
-		plaintextPassword, err := kcitem.Read()
+		plaintextPassword, err := kcitem.Read(extKeychain)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(ExitReadErr)
 		}
 		fmt.Println(plaintextPassword)
 	} else {
-		if err := kcitem.Write(); err != nil {
+		if err := kcitem.Write(extKeychain); err != nil {
 			fmt.Println(err)
 			os.Exit(ExitWriteErr)
 		}

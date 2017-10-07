@@ -85,10 +85,10 @@ tools:
 	@go get golang.org/x/tools/cmd/goimports
 	@go get github.com/golang/lint/golint
 	@go get github.com/kisielk/errcheck
-	@go get github.com/remyoudompheng/go-misc/deadcode
 	@go get github.com/opennota/check/cmd/aligncheck
 	@go get github.com/opennota/check/cmd/structcheck
 	@go get github.com/opennota/check/cmd/varcheck
+	@go get github.com/remyoudompheng/go-misc/deadcode
 
 errcheck:
 	@errcheck $(PKGS)

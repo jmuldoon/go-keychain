@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+const testVersion = 0
+
 // Args are arguments that are passed in over the command line
 type Args struct {
 	Account  *string
