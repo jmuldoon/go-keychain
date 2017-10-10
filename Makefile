@@ -20,7 +20,7 @@ PKGS = $(shell glide novendor)
 .PHONY: tools varcheck structcheck aligncheck deadcode errcheck checkall testverbose deps doc
 .PHONY: depsupdate
 
-all: checkall install
+all: version tools deps checkall install
 
 $(TARGET): deps $(SRC)
 	@go build $(LDFLAGS) -o $(TARGET)
@@ -52,6 +52,7 @@ help:
 	@echo '    imports            Run goimports to remove/add (un)necessary imports.'
 	@echo '    install            Run go install'
 	@echo '    uninstall          Force removes the artifact'
+	@echo '    version 	          Checks the go version'
 	@echo ''
 	@echo 'Targets run by default are: checkall, install'
 	@echo ''
@@ -129,3 +130,6 @@ coverage: check
 
 coverageall: checkall
 	@go test -cover $(PKGS)
+
+version:
+	@go version

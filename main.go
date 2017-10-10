@@ -13,8 +13,7 @@ import (
 
 // Exit Codes
 const (
-	ExitGeneralErr = 1 + iota
-	ExitArgParseErr
+	ExitArgParseErr = 0 + iota
 	ExitWriteErr
 	ExitReadErr
 )
