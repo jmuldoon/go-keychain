@@ -82,8 +82,8 @@ func TestRead(t *testing.T) {
 		if observed != test.Expected.Value {
 			t.Fatalf("%s(%v):\n"+
 				"Brief (%s)\n"+
-				"Observed: %t\n"+
-				"Expected: %t\n",
+				"Observed: %v\n"+
+				"Expected: %v\n",
 				"TestRead", test.Tested.Value,
 				test.Description, observed, test.Expected.Value)
 		}

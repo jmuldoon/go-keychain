@@ -25,8 +25,8 @@ func TestRandStringBytesMaskLength(t *testing.T) {
 		if len(observed) != test.Expected.Value {
 			t.Fatalf("%s(%v):\n"+
 				"Brief (%s)\n"+
-				"Observed: %t\n"+
-				"Expected: %t\n",
+				"Observed: %v\n"+
+				"Expected: %v\n",
 				"TestRandStringBytesMaskLength", test.Tested.Value,
 				test.Description, observed, test.Expected.Value)
 		}
@@ -43,8 +43,8 @@ func TestRandStringBytesMaskType(t *testing.T) {
 		if typecheck.Kind() != reflect.String {
 			t.Fatalf("%s(%v):\n"+
 				"Brief (%s)\n"+
-				"Observed: %t\n"+
-				"Expected: %t\n",
+				"Observed: %v\n"+
+				"Expected: %v\n",
 				"TestRandStringBytesMaskType", test.Tested.Value,
 				test.Description, observed, test.Expected.Value)
 		}

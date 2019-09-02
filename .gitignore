@@ -3,6 +3,8 @@
 *.dll
 *.so
 *.dylib
+go-keychain
+
 # dlv generated binary
 debug
 
@@ -20,3 +22,6 @@ vendor/
 
 # vscode stuff
 .vscode
+
+# lock files
+go.sum
