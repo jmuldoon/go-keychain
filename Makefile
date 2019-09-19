@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /bin/sh
 
 # The name of the executable (default is current directory name)
 TARGET := $(shell echo $${PWD\#\#*/})
@@ -22,7 +22,7 @@ PKGS_BY_PATH = $(shell go list ./... | grep -v /vendor/)
 all: version tools lint install
 
 $(TARGET): $(SRC)
-	@GO111MODULE=on go build $(LDFLAGS) -o $(TARGET)
+	@go build $(LDFLAGS) -o $(TARGET)
 
 help:
 	@echo 'Usage: make <OPTIONS> ... <TARGETS>'
@@ -38,7 +38,7 @@ help:
 	@echo '    testverbose        Run unit tests in verbose mode, and check.'
 	@echo '    coverage           Report code tests coverage, and check.'
 	@echo '    build              Build project for current platform.'
-	@echo '		 tidy 							runs go mod tidy'
+	@echo '    tidy 							runs go mod tidy'
 	@echo '    fmt                Run go fmt.'
 	@echo '    install            Run go install'
 	@echo '    uninstall          Force removes the artifact'
@@ -54,13 +54,13 @@ clean: tidy
 	@rm -f $(TARGET)
 
 tidy:
-	@GO111MODULE=on go mod tidy
+	@go mod tidy
 
 doc:
 	godoc -http=:8080 -index
 
 install:
-	@GO111MODULE=on go install $(LDFLAGS)
+	@go install $(LDFLAGS)
 
 uninstall: clean
 	@rm -f $$(which ${TARGET})
@@ -73,16 +73,16 @@ tools:
 	@go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 lint:
-	@GO111MODULE=on golangci-lint run ./...
+	@golangci-lint run ./...
 
 test: lint
-	@GO111MODULE=on go test $(PKGS_BY_PATH)
+	@go test $(PKGS_BY_PATH)
 
 testverbose: lint
-	@GO111MODULE=on go test -v $(PKGS_BY_PATH)
+	@go test -v $(PKGS_BY_PATH)
 
 coverage: lint
-	@GO111MODULE=on go test -cover $(PKGS_BY_PATH)
+	@go test -cover $(PKGS_BY_PATH)
 
 version:
 	@go version

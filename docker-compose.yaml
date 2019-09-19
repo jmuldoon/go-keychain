@@ -1,0 +1,8 @@
+version: '3'
+services:
+  go:
+    image: docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.1@sha256:d8ab15705f1c75ea56ddb7dc21c7a852d8da00610c73dd6710e31b023f8d0fb9
+    container_name: "golang"
+    working_dir: /go/src/github.com/jmuldoon/go-keychain
+    volumes:
+     - ${GOPATH}:/go

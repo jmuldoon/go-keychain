@@ -43,3 +43,11 @@ Please see for a complete listing the below command.
 ``` bash
 make help
 ```
+
+## Docker-Compose
+
+The following command will allow one to pull and bring up a container that will allow them to work directly with the binary
+
+``` bash
+docker-compose run go /bin/sh
+```
