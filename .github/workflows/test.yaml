@@ -1,0 +1,19 @@
+name: test
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Use jmuldoon/docker/go-ci v0.0.2
+      uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+
+    - name: Check Go Version
+      run: go version
+
+    - name: Check Go Env
+      run: go env
