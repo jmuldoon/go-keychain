@@ -1,6 +1,19 @@
 # go-keychain
 
+[![Actions Status](https://github.com/jmuldoon/go-keychain/workflows/test/badge.svg)](https://github.com/jmuldoon/go-keychain/actions)
+
 Personal use, password export for applications. Quick and dirty implemenation for password setting and retrieval. Plus quick use case.
+
+<!-- TOC -->
+
+- [go-keychain](#go-keychain)
+  - [Example cli arguments](#example-cli-arguments)
+    - [Example useage](#example-useage)
+  - [.bashrc / .bash_profile](#bashrc--bash_profile)
+  - [Makefile use](#makefile-use)
+  - [Docker-Compose](#docker-compose)
+
+<!-- /TOC -->
 
 ## Example cli arguments
 
