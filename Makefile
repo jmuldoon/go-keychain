@@ -75,13 +75,13 @@ tools:
 lint:
 	@golangci-lint run ./...
 
-test: lint
+test:
 	@go test $(PKGS_BY_PATH)
 
-testverbose: lint
+testverbose:
 	@go test -v $(PKGS_BY_PATH)
 
-coverage: lint
+coverage:
 	@go test -cover $(PKGS_BY_PATH)
 
 version:
