@@ -5,10 +5,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-      image: docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
-      env:
-        DOCKER_USERNAME: ${{ github.actor }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+      image: golang:1.13.0-alpine3.10
     steps:
 
     # - name: Login Docker Registry
@@ -17,9 +14,6 @@ jobs:
     #     DOCKER_USERNAME: ${{ github.actor }}
     #     DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
     #   run: echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
-
-    # - name: Use golang dockerhub image v1.13.0-alpine3.10
-    #   uses: docker://golang:1.13.0-alpine3.10
 
     # - name: Use jmuldoon/docker/go-ci v0.0.2
     #   uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
@@ -33,8 +27,21 @@ jobs:
     - name: Install tools needed by the project
       run: make tools
 
+    - name: Check Go Version
+      run: go version
+
+    - name: Check Go Env
+      run: go env
+
+    - name: Runs go golangci-lint run ./..
+      run: make lint
+
     - name: Install tools needed by the project
       run: make build
+
+    - name: Report code tests coverage, and check
+      run: make coverage
+
 
   # test:
   #   name: Test
