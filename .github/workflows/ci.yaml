@@ -31,10 +31,10 @@ jobs:
       run: make tools
 
     - name: Check Go Version
-      run: go version
+      run: make version
 
-    - name: Check Go Env
-      run: go env
+    - name: Runs go env
+      run: make env
 
     - name: Run unit tests
       run: make test

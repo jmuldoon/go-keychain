@@ -16,7 +16,7 @@ SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 PKGS_BY_PATH = $(shell go list ./... | grep -v /vendor/)
 
 .PHONY: all build clean install uninstall fmt test coverage run help
-.PHONY: tools lint doc tidy
+.PHONY: tools lint doc tidy environment
 
 
 all: version tools lint install
@@ -32,6 +32,7 @@ help:
 	@echo '    help               Show this help screen.'
 	@echo '    clean              Remove binaries, artifacts and releases.'
 	@echo '    doc                Start Go documentation server on port 8080.'
+	@echo '    environment        Runs go env.'
 	@echo '    tools              Install tools needed by the project.'
 	@echo '    lint               Runs go golangci-lint run ./..
 	@echo '    test               Run unit tests, and check.'
