@@ -34,7 +34,7 @@ jobs:
       run: make version
 
     - name: Runs go env
-      run: make env
+      run: make environment
 
     - name: Run unit tests
       run: make test
