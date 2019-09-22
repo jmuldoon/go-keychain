@@ -18,6 +18,9 @@ jobs:
     # - name: Use jmuldoon/docker/go-ci v0.0.2
     #   uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
 
+    - name: APK Update so we have the tools we need
+      run: apk add make --no-cache
+
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
