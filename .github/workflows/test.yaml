@@ -18,10 +18,9 @@ jobs:
 
     - name: Use jmuldoon/docker/go-ci v0.0.2
       env:
-        docker_registry_url: docker.pkg.github.com
         DOCKER_USERNAME: ${{ github.actor }}
         DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-      uses: docker://$docker_registry_url/jmuldoon/docker/go-ci:0.0.2
+      uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
