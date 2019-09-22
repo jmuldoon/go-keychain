@@ -36,6 +36,9 @@ jobs:
     - name: Check Go Env
       run: go env
 
+    - name: Run unit tests
+      run: make test
+
     - name: Runs go golangci-lint run ./..
       run: make lint
 
