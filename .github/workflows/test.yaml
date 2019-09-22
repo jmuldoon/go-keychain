@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Login Docker Registry
-      env:
-        DOCKER_REGISTRY_URL: docker.pkg.github.com
-        DOCKER_USERNAME: ${{ github.actor }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-      run: echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
+    # - name: Login Docker Registry
+    #   env:
+    #     DOCKER_REGISTRY_URL: docker.pkg.github.com
+    #     DOCKER_USERNAME: ${{ github.actor }}
+    #     DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+    #   run: echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
 
     - name: Use golang dockerhub image v1.13.0-alpine3.10
       uses: docker://golang:1.13.0-alpine3.10
