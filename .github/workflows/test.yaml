@@ -13,8 +13,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
       run: echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
 
-    # - name: Use jmuldoon/docker/go-ci v0.0.2
-    #   uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
+    - name: Use jmuldoon/docker/go-ci v0.0.2
+      uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
