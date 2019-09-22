@@ -36,7 +36,6 @@ help:
 	@echo '    tools              Install tools needed by the project.'
 	@echo '    lint               Runs go golangci-lint run ./..
 	@echo '    test               Run unit tests, and check.'
-	@echo '    testverbose        Run unit tests in verbose mode, and check.'
 	@echo '    coverage           Report code tests coverage, and check.'
 	@echo '    build              Build project for current platform.'
 	@echo '    tidy 							runs go mod tidy'
@@ -79,11 +78,8 @@ lint:
 test:
 	@go test $(PKGS_BY_PATH)
 
-testverbose:
-	@go test -v $(PKGS_BY_PATH)
-
 coverage:
-	@go test -cover $(PKGS_BY_PATH)
+	@go test -v -cover $(PKGS_BY_PATH)
 
 version:
 	@go version

@@ -7,17 +7,6 @@ jobs:
     container:
       image: golang:1.13.0-alpine3.10
     steps:
-
-    # - name: Login Docker Registry
-    #   env:
-    #     DOCKER_REGISTRY_URL: docker.pkg.github.com
-    #     DOCKER_USERNAME: ${{ github.actor }}
-    #     DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-    #   run: echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
-
-    # - name: Use jmuldoon/docker/go-ci v0.0.2
-    #   uses: docker://docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
-
     - name: APK Update so we have the tools we need
       run: apk add make --no-cache
 
@@ -36,7 +25,7 @@ jobs:
     - name: Runs go env
       run: make environment
 
-    - name: Run unit tests
+    - name: Runs go test -v -cover ./..
       run: make test
 
     - name: Runs go golangci-lint run ./..
