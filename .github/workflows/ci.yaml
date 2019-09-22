@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker.pkg.github.com/jmuldoon/docker/go-ci:0.0.2
+    env:
+      DOCKER_USERNAME: ${{ github.actor }}
+      DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
     steps:
 
     # - name: Login Docker Registry
